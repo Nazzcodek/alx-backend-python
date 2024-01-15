@@ -9,6 +9,6 @@ task_wait_random = __import__('3-tasks').task_wait_random
 
 async def task_wait_n(n: int, max_delay: int) -> List[float]:
     """ this function spawn wait_random """
-    lst_task = [task_wait_random(max_delay) for _ in range(n)]
+    lst_task = [asyncio.create_task(task_wait_random(max_delay)) for _ in range(n)]
     delay = await asyncio.gather(*lst_task)
-    return delay
+    return sorted(delay)
