@@ -2,10 +2,10 @@
 """this is async comprehension genrator module"""
 import asyncio
 from random import uniform as u
-from typing import List
+from typing import Generator
 
 
-async def async_generator() -> List[float]:
+async def async_generator() -> Generator[float, None]:
     """this is async generator function"""
     for i in range(10):
         await asyncio.sleep(1)
