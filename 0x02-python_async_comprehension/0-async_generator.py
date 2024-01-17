@@ -5,7 +5,7 @@ from random import uniform as u
 from typing import Generator
 
 
-async def async_generator() -> Generator[float, None]:
+async def async_generator() -> Generator[float, None, None]:
     """this is async generator function"""
     for i in range(10):
         await asyncio.sleep(1)
