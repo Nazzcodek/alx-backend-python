@@ -30,10 +30,6 @@ ENV/
 env.bak/
 venv.bak/
 
-# PostgreSQL files
-pg_seed.py
-0-stream_pg_users.py
-
 # Test files
 *-main.py
 
@@ -46,3 +42,6 @@ pg_seed.py
 # OS files
 .DS_Store
 Thumbs.db
+
+*-pg_
+*_pg_
