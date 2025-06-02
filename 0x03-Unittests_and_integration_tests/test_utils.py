@@ -8,7 +8,11 @@ from unittest.mock import patch, Mock
 
 
 class TestAccessNestedMap(unittest.TestCase):
-    """Test suite for access_nested_map function."""
+    """
+    Test suite for access_nested_map function.
+    This class tests the access_nested_map function to ensure it correctly
+    retrieves values from nested dictionaries based on a given path.
+    """
     @parameterized.expand([
         ({"a": 1}, ("a",), 1),
         ({"a": {"b": 2}}, ("a",), {"b": 2}),
