@@ -19,6 +19,13 @@ class TestAccessNestedMap(unittest.TestCase):
         ({"a": {"b": 2}}, ("a", "b"), 2),
     ])
     def test_access_nested_map(self, nested_map, path, expected):
+        """
+        Test that access_nested_map retrieves the correct value from a nested map.
+        Args:
+            nested_map (dict): The nested dictionary to access.
+            path (tuple): The path to the value in the nested dictionary.
+            expected: The expected value at the given path.
+        """
         self.assertEqual(access_nested_map(nested_map, path), expected)
 
     @parameterized.expand([
@@ -26,6 +33,13 @@ class TestAccessNestedMap(unittest.TestCase):
         ({"a": 1}, ("a", "b"), "b"),
     ])
     def test_access_nested_map_exception(self, nested_map, path, expected_key):
+        """
+        Test that access_nested_map raises KeyError for invalid paths.
+        Args:
+            nested_map (dict): The nested dictionary to access.
+            path (tuple): The path that does not exist in the nested dictionary.
+            expected_key: The key that is expected to raise a KeyError.
+        """
         with self.assertRaises(KeyError) as cm:
             access_nested_map(nested_map, path)
         self.assertEqual(str(cm.exception), f"'{expected_key}'")
@@ -39,6 +53,12 @@ class TestGetJson(unittest.TestCase):
         ("http://holberton.io", {"payload": False}),
     ])
     def test_get_json(self, test_url, test_payload):
+        """
+        Test that get_json retrieves JSON data from a URL.
+        Args:
+            test_url (str): The URL to fetch JSON data from.
+            test_payload (dict): The expected JSON payload.
+        """
         with patch("utils.requests.get") as mock_get:
             mock_response = Mock()
             mock_response.json.return_value = test_payload
