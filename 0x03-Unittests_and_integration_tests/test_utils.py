@@ -20,7 +20,7 @@ class TestAccessNestedMap(unittest.TestCase):
     ])
     def test_access_nested_map(self, nested_map, path, expected):
         """
-        Test that access_nested_map retrieves the correct value 
+        Test that access_nested_map retrieves the correct value
         from a nested map.
         Args:
             nested_map (dict): The nested dictionary to access.
@@ -38,7 +38,7 @@ class TestAccessNestedMap(unittest.TestCase):
         Test that access_nested_map raises KeyError for invalid paths.
         Args:
             nested_map (dict): The nested dictionary to access.
-            path (tuple): The path that does not exist in 
+            path (tuple): The path that does not exist in
                             the nested dictionary.
             expected_key: The key that is expected to raise a KeyError.
         """
