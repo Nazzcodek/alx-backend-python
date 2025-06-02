@@ -5,7 +5,7 @@ import unittest
 from unittest.mock import patch
 from parameterized import parameterized, parameterized_class
 from client import GithubOrgClient
-import features
+import fixtures
 
 class TestGithubOrgClient(unittest.TestCase):
     """Test GithubOrgClient.org method."""
@@ -77,10 +77,10 @@ class TestGithubOrgClient(unittest.TestCase):
 
 @parameterized_class([
     {
-        "org_payload": features.org_payload,
-        "repos_payload": features.repos_payload,
-        "expected_repos": features.expected_repos,
-        "apache2_repos": features.apache2_repos,
+        "org_payload": fixtures.org_payload,
+        "repos_payload": fixtures.repos_payload,
+        "expected_repos": fixtures.expected_repos,
+        "apache2_repos": fixtures.apache2_repos,
     }
 ])
 class TestIntegrationGithubOrgClient(unittest.TestCase):
