@@ -12,6 +12,7 @@ from fixtures import (
     apache2_repos,
 )
 
+
 class TestGithubOrgClient(unittest.TestCase):
     """Test GithubOrgClient.org method."""
 
