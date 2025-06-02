@@ -1,15 +1,11 @@
 #!/usr/bin/env python3
 """Test suite for GithubOrgClient."""
 
-import sys
-import os
 import unittest
 from unittest.mock import patch
-from parameterized import parameterized
+from parameterized import parameterized, parameterized_class
 from client import GithubOrgClient
-
-sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
-
+import features
 
 class TestGithubOrgClient(unittest.TestCase):
     """Test GithubOrgClient.org method."""
@@ -77,3 +73,38 @@ class TestGithubOrgClient(unittest.TestCase):
         self.assertEqual(
             GithubOrgClient.has_license(repo, license_key), expected
             )
+
+
+@parameterized_class([
+    {
+        "org_payload": features.org_payload,
+        "repos_payload": features.repos_payload,
+        "expected_repos": features.expected_repos,
+        "apache2_repos": features.apache2_repos,
+    }
+])
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """Integration tests for GithubOrgClient.public_repos."""
+
+    @classmethod
+    def setUpClass(cls):
+        """Set up class-wide mocks for requests.get."""
+        cls.get_patcher = patch("requests.get")
+        mock_get = cls.get_patcher.start()
+
+        def side_effect(url):
+            mock_response = unittest.mock.Mock()
+            if url == GithubOrgClient.ORG_URL.format(org="google"):
+                mock_response.json.return_value = cls.org_payload
+            elif url == cls.org_payload["repos_url"]:
+                mock_response.json.return_value = cls.repos_payload
+            else:
+                mock_response.json.return_value = None
+            return mock_response
+
+        mock_get.side_effect = side_effect
+
+    @classmethod
+    def tearDownClass(cls):
+        """Stop the requests.get patcher."""
+        cls.get_patcher.stop()
