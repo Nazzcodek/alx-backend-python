@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Test suite for GithubOrgClient."""
 
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
+
 import unittest
 from unittest.mock import patch
 from parameterized import parameterized
@@ -28,7 +32,7 @@ class TestGithubOrgClient(unittest.TestCase):
 
     def test_public_repos_url(self):
         """
-        Test that _public_repos_url returns the correct 
+        Test that _public_repos_url returns the correct
         repos_url from org payload.
         """
         payload = {"repos_url": "https://api.github.com/orgs/testorg/repos"}
