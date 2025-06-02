@@ -6,6 +6,7 @@ from unittest.mock import patch
 from parameterized import parameterized
 from client import GithubOrgClient
 
+
 class TestGithubOrgClient(unittest.TestCase):
     """Test GithubOrgClient.org method."""
 
@@ -24,7 +25,7 @@ class TestGithubOrgClient(unittest.TestCase):
         mock_get_json.assert_called_once_with(
             f"https://api.github.com/orgs/{org_name}"
             )
-        
+
     def test_public_repos_url(self):
         """
         Test that _public_repos_url returns the correct 
@@ -32,13 +33,14 @@ class TestGithubOrgClient(unittest.TestCase):
         """
         payload = {"repos_url": "https://api.github.com/orgs/testorg/repos"}
         with patch.object(
-            GithubOrgClient, "org",
+            GithubOrgClient,
+            "org",
             new_callable=property
-            ) as mock_org:
+        ) as mock_org:
             mock_org.return_value = payload
             client = GithubOrgClient("testorg")
             self.assertEqual(client._public_repos_url, payload["repos_url"])
-    
+
     @patch("client.get_json")
     def test_public_repos(self, mock_get_json):
         """Test that public_repos returns the expected list of repo names."""
@@ -54,14 +56,14 @@ class TestGithubOrgClient(unittest.TestCase):
             GithubOrgClient,
             "_public_repos_url",
             new_callable=property
-            ) as mock_url:
+        ) as mock_url:
             mock_url.return_value = test_repos_url
             client = GithubOrgClient("testorg")
             repos = client.public_repos()
             self.assertEqual(repos, ["repo1", "repo2", "repo3"])
             mock_url.assert_called_once()
             mock_get_json.assert_called_once_with(test_repos_url)
-    
+
     @parameterized.expand([
         ({"license": {"key": "my_license"}}, "my_license", True),
         ({"license": {"key": "other_license"}}, "my_license", False),
