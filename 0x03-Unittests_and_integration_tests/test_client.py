@@ -3,12 +3,12 @@
 
 import sys
 import os
-sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
-
 import unittest
 from unittest.mock import patch
 from parameterized import parameterized
 from client import GithubOrgClient
+
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
 
 class TestGithubOrgClient(unittest.TestCase):
